@@ -1,0 +1,37 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AspNetCoreHostingModel>InProcess</AspNetCoreHostingModel>
+    <TypeScriptToolsVersion>3.3</TypeScriptToolsVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <WarningLevel>0</WarningLevel>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+    <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Apps\**" />
+    <None Remove="Apps\**" />
+    <None Include="Apps\**" Exclude="Apps\node_modules\**" />
+  </ItemGroup>
+
+<Target Name="PublishApps" AfterTargets="ComputeFilesToPublish">
+  <Exec WorkingDirectory="Apps\" Command="npm run build -- --prod --outputPath=../wwwroot/apps/core" />
+  <Exec WorkingDirectory="Apps\" Command="npm run build App1 -- --prod --base-href=/apps/app1/ --outputPath=../wwwroot/apps/app1" />
+
+  <ItemGroup>
+    <DistFiles Include="wwwroot\apps\**" />
+    <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
+      <RelativePath>%(DistFiles.Identity)</RelativePath>
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </ResolvedFileToPublish>
+  </ItemGroup>
+</Target>
+  
+</Project>

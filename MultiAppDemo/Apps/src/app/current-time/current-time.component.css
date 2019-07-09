@@ -1,0 +1,10 @@
+p {
+    background-color: darkslategray;
+    color: lightgreen;
+    font-weight: bold;
+    display: inline-block;
+    padding: 7px;
+    border: 4px solid black;
+    border-radius: 5px;
+    font-family: monospace;
+}
