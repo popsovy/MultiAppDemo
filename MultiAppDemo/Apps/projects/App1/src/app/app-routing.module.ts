@@ -18,7 +18,7 @@ export class AppRoutingModule {
     this.route.events.subscribe(e => {
       if(e instanceof NavigationEnd){
         if (topHref){
-         // window.top.history.replaceState(window.top.history.state, window.top.document.title, topHref + e.url);
+          window.top.history.replaceState(window.top.history.state, window.top.document.title, topHref + e.url);
         }
       }
     });
