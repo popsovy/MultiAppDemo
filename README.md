@@ -1,6 +1,6 @@
 # Multi App Demo
 
-This project contains an example of how to host [Angular] (https://angular.io) apps and Angular web components in [ASP.NET] (https://dotnet.microsoft.com/apps/aspnet) views.
+This project contains an example of how to host [Angular](https://angular.io) apps and Angular web components in [ASP.NET](https://dotnet.microsoft.com/apps/aspnet) views.
 
 ## Prerequisites
 
