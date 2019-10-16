@@ -60,7 +60,7 @@ namespace MultiAppDemo
                     }
                     else
                     {
-                        var staticPath = Path.Combine(Directory.GetCurrentDirectory(), $"wwwroot/apps/app1");
+                        var staticPath = Path.Combine(Directory.GetCurrentDirectory(), $"wwwroot/Apps/dist/app1");
                         var fileOptions = new StaticFileOptions { FileProvider = new PhysicalFileProvider(staticPath) };
                         builder.UseSpaStaticFiles(options: fileOptions);
 

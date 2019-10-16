@@ -3,6 +3,7 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp3.0</TargetFramework>
     <TypeScriptToolsVersion>3.3</TypeScriptToolsVersion>
+    <SpaRoot>Apps\</SpaRoot>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -10,26 +11,27 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Content Remove="Apps\**" />
-    <None Remove="Apps\**" />
-    <None Include="Apps\**" Exclude="Apps\node_modules\**" />
+    <Content Remove="$(SpaRoot)**" />
+    <None Remove="$(SpaRoot)**" />
+    <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.0.0" />
   </ItemGroup>
 
-<Target Name="PublishApps" AfterTargets="ComputeFilesToPublish">
-  <Exec WorkingDirectory="Apps\" Command="npm run build -- --prod --outputPath=../wwwroot/apps/core" />
-  <Exec WorkingDirectory="Apps\" Command="npm run build App1 -- --prod --base-href=/apps/app1/ --outputPath=../wwwroot/apps/app1" />
+  <Target Name="PublishApps" AfterTargets="ComputeFilesToPublish">
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build -- --prod --outputPath=./dist/core" />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build App1 -- --prod --base-href=/apps/app1/ --outputPath=./dist/app1" />
 
-  <ItemGroup>
-    <DistFiles Include="wwwroot\apps\**" />
-    <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
-      <RelativePath>%(DistFiles.Identity)</RelativePath>
-      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-    </ResolvedFileToPublish>
-  </ItemGroup>
-</Target>
-  
+    <ItemGroup>
+      <DistFiles Include="$(SpaRoot)dist\**" />
+      <ResolvedFileToPublish Include="@(DistFiles->'%(FullPath)')" Exclude="@(ResolvedFileToPublish)">
+        <RelativePath>wwwroot\%(DistFiles.Identity)</RelativePath>
+        <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+      </ResolvedFileToPublish>
+    </ItemGroup>
+  </Target>
+
 </Project>
