@@ -13,11 +13,14 @@ const routes: Routes = [
   exports: [RouterModule] 
 })
 export class AppRoutingModule {
-  constructor(private route:Router){
-    var topHref = window.top.location.href != window.location.href ? window.top.location.href.substring(0, window.top.location.href.indexOf('/app1') + 5) : null;
+  constructor(private route: Router) {
+    const topHref = window.top.location.href != window.location.href 
+      ? window.top.location.href.substring(0, window.top.location.href.indexOf('/app1') + 5) 
+      : null;
+    
     this.route.events.subscribe(e => {
-      if(e instanceof NavigationEnd){
-        if (topHref){
+      if(e instanceof NavigationEnd) {
+        if (topHref) {
           window.top.history.replaceState(window.top.history.state, window.top.document.title, topHref + e.url);
         }
       }
